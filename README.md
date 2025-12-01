@@ -7,7 +7,9 @@ Intelligently assign the RIGHT MCP servers based on your needs, and UNCLOG your 
 Figma MCP takes up 50% of tools, but DON’T stress, clean will CLEAN up your context PERFECTLY so that you can focus on your project and not the shitty MCP servers.
 
 Research the following:
+
 https://code.claude.com/docs/en/mcp
+
 https://cursor.com/docs/cli/mcp
 
 Off the top on my mind: HyperSpell, The Context Company
