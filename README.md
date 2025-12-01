@@ -22,3 +22,6 @@ Steps to do:
 7) Learn how to optimize input context
 8) Learn how to optimize output efficiency
 
+Cool project to show depth of knowledge, first YC customer (Inspector YC F25)
+
+Integrate into ALL agents.
