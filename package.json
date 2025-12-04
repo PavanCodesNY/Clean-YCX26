@@ -1,0 +1,158 @@
+{
+  "name": "clean",
+  "displayName": "Clean - MCP Server Manager",
+  "description": "The ultimate MCP server management extension. Intelligently discover, install, and optimize MCP servers.",
+  "version": "0.1.0",
+  "publisher": "clean",
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "claude",
+    "cursor"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "clean",
+          "title": "Clean",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "clean": [
+        {
+          "id": "mcpServers",
+          "name": "MCP Servers",
+          "contextualTitle": "Clean MCP Servers"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "clean.refreshServers",
+        "title": "Clean: Refresh MCP Servers",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "clean.browseMCPs",
+        "title": "Clean: Browse MCP Servers",
+        "icon": "$(search)"
+      },
+      {
+        "command": "clean.installMCP",
+        "title": "Clean: Install MCP Server"
+      },
+      {
+        "command": "clean.showServerDetails",
+        "title": "Clean: Show Server Details"
+      },
+      {
+        "command": "clean.showStats",
+        "title": "Clean: Show Context Optimization Stats"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "clean.refreshServers",
+          "when": "view == mcpServers",
+          "group": "navigation"
+        },
+        {
+          "command": "clean.browseMCPs",
+          "when": "view == mcpServers",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "clean.installMCP",
+          "when": "view == mcpServers && viewItem == mcpServer",
+          "group": "inline"
+        },
+        {
+          "command": "clean.showServerDetails",
+          "when": "view == mcpServers && viewItem == mcpServer",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Clean",
+      "properties": {
+        "clean.enableContextOptimization": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI-powered context optimization to reduce token usage"
+        },
+        "clean.optimizationAggressiveness": {
+          "type": "number",
+          "default": 80,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "How aggressively to filter MCP output (0-100%). Higher = more filtering."
+        },
+        "clean.filterModel": {
+          "type": "string",
+          "enum": [
+            "gpt-4o-mini",
+            "claude-haiku"
+          ],
+          "default": "gpt-4o-mini",
+          "description": "LLM model to use for context optimization"
+        },
+        "clean.cacheRefreshInterval": {
+          "type": "number",
+          "default": 24,
+          "description": "Hours between MCP catalog refresh (default: 24)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.95.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "typescript-eslint": "^8.46.3",
+    "eslint": "^9.39.1",
+    "esbuild": "^0.27.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "jsonc-parser": "^3.3.1",
+    "glob": "^11.0.0",
+    "openai": "^4.57.0"
+  }
+}
